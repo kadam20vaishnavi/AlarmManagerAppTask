@@ -17,7 +17,6 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
     Button setalarm;
-    private PendingIntent alarmIntent;
     int i=5;
 
     public static final String NOTIFICATION_CHANNEL_ID = "10001" ;
@@ -48,10 +47,12 @@ public class MainActivity extends Activity {
         long futureInMillis = SystemClock. elapsedRealtime () + delay*1000 ;
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context. ALARM_SERVICE ) ;
         assert alarmManager != null;
-        alarmManager.set(AlarmManager. ELAPSED_REALTIME_WAKEUP , futureInMillis , pendingIntent) ;
+        alarmManager.setRepeating(AlarmManager. ELAPSED_REALTIME_WAKEUP , futureInMillis ,1000 * 60 * 5 , pendingIntent); ;
+
     }
 
-    private Notification getNotification (String content) {
+    private Notification getNotification (String content)
+    {
         NotificationCompat.Builder builder = new NotificationCompat.Builder( this, default_notification_channel_id ) ;
         builder.setContentTitle( "Scheduled Notification" ) ;
         builder.setContentText(content) ;
@@ -60,4 +61,4 @@ public class MainActivity extends Activity {
         builder.setChannelId( NOTIFICATION_CHANNEL_ID ) ;
         return builder.build() ;
     }
-    }
+}
